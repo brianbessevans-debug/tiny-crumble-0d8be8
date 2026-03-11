@@ -109,6 +109,24 @@
 
     @keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 
+    /* MUSIC PLAYER */
+    .music-toggle { position: fixed; bottom: 28px; left: 28px; z-index: 4000; width: 52px; height: 52px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.4s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+    .music-toggle:hover { border-color: var(--accent); background: #161616; transform: scale(1.08); }
+    .music-toggle svg { width: 20px; height: 20px; fill: var(--accent); transition: fill 0.3s; }
+    .music-toggle.playing { border-color: var(--accent); }
+    .music-toggle.playing .bars { display: flex; } .music-toggle.playing .play-icon { display: none; }
+    .music-toggle .bars { display: none; align-items: flex-end; gap: 3px; height: 16px; }
+    .music-toggle .bar { width: 3px; background: var(--accent); border-radius: 1px; animation: musicBar 0.8s ease-in-out infinite alternate; }
+    .music-toggle .bar:nth-child(1) { height: 60%; animation-delay: 0s; }
+    .music-toggle .bar:nth-child(2) { height: 100%; animation-delay: 0.2s; }
+    .music-toggle .bar:nth-child(3) { height: 40%; animation-delay: 0.4s; }
+    .music-toggle .bar:nth-child(4) { height: 80%; animation-delay: 0.1s; }
+    @keyframes musicBar { 0% { transform: scaleY(0.3); } 100% { transform: scaleY(1); } }
+    .music-player-panel { position: fixed; bottom: 90px; left: 28px; z-index: 4000; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; opacity: 0; transform: translateY(12px) scale(0.95); pointer-events: none; transition: all 0.35s ease; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+    .music-player-panel.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .music-player-label { padding: 10px 16px 6px; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.25em; color: var(--accent); text-transform: uppercase; }
+    .music-player-song { padding: 0 16px 12px; font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--muted); font-style: italic; }
+
     @media (max-width: 900px) {
       .about { grid-template-columns: 1fr; gap: 40px; padding: 80px 32px; }
       .gallery { padding: 60px 24px; }
@@ -213,6 +231,19 @@
     </a>
   </section>
 
+  <!-- MUSIC PLAYER -->
+  <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
+    <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <div class="bars">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </button>
+  <div class="music-player-panel" id="musicPanel">
+    <div class="music-player-label">Now Playing</div>
+    <div class="music-player-song">Angel — Massive Attack</div>
+    <iframe id="spotifyEmbed" style="border-radius:0;border:none;" src="" width="300" height="80" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+
   <footer>
     <span class="footer-logo">NIKKIE JONES</span>
     <span class="footer-copy">© 2025 &nbsp;·&nbsp; @thenikkiejones &nbsp;·&nbsp; All rights reserved</span>
@@ -251,6 +282,31 @@
       el.style.opacity='0'; el.style.transform='translateY(40px)';
       el.style.transition='opacity 0.9s ease, transform 0.9s ease';
       io.observe(el);
+    });
+
+    // Music Player
+    const musicToggle = document.getElementById('musicToggle');
+    const musicPanel = document.getElementById('musicPanel');
+    const spotifyEmbed = document.getElementById('spotifyEmbed');
+    const spotifySrc = 'https://open.spotify.com/embed/track/3fUMbJpOSgwMKgEfoSJhCW?utm_source=generator&theme=0';
+    let musicLoaded = false;
+    let panelOpen = false;
+
+    musicToggle.addEventListener('click', () => {
+      panelOpen = !panelOpen;
+      if (!musicLoaded) {
+        spotifyEmbed.src = spotifySrc;
+        musicLoaded = true;
+      }
+      musicPanel.classList.toggle('open', panelOpen);
+      musicToggle.classList.toggle('playing', panelOpen);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (panelOpen && !musicPanel.contains(e.target) && !musicToggle.contains(e.target)) {
+        panelOpen = false;
+        musicPanel.classList.remove('open');
+      }
     });
   </script>
 </body>
