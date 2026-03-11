@@ -337,7 +337,7 @@
   <div class="music-player-panel" id="musicPanel">
     <div class="music-player-label">Now Playing</div>
     <div class="music-player-song">Angel — Massive Attack</div>
-    <iframe id="spotifyEmbed" style="border-radius:0;border:none;" src="" width="300" height="80" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe id="spotifyEmbed" style="border-radius:0;border:none;" src="" width="300" height="80" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
   </div>
 
   <footer>
@@ -384,7 +384,7 @@
     const musicToggle = document.getElementById('musicToggle');
     const musicPanel = document.getElementById('musicPanel');
     const spotifyEmbed = document.getElementById('spotifyEmbed');
-    const spotifySrc = 'https://open.spotify.com/embed/track/3fUMbJpOSgwMKgEfoSJhCW?utm_source=generator&theme=0';
+    const spotifySrc = 'https://open.spotify.com/embed/track/3fUMbJpOSgwMKgEfoSJhCW?utm_source=generator&theme=0&autoplay=1';
     let musicLoaded = false;
     let panelOpen = false;
 
@@ -402,6 +402,7 @@
       if (panelOpen && !musicPanel.contains(e.target) && !musicToggle.contains(e.target)) {
         panelOpen = false;
         musicPanel.classList.remove('open');
+        musicToggle.classList.remove('playing');
       }
     });
   </script>
