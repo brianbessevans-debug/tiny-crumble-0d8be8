@@ -147,6 +147,43 @@
       .ig-section { padding: 80px 32px; }
       footer { padding: 28px 32px; flex-direction: column; gap: 12px; text-align: center; }
     }
+
+    /* Audio splash overlay */
+    .audio-splash {
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--black);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      opacity: 1; transition: opacity 0.8s ease;
+    }
+    .audio-splash.hidden { opacity: 0; pointer-events: none; }
+    .audio-splash h2 {
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: 6px; color: var(--accent); margin-bottom: 12px;
+    }
+    .audio-splash p {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+      color: var(--muted); margin-bottom: 32px; text-align: center; padding: 0 20px;
+    }
+    .audio-splash button {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;
+      letter-spacing: 4px; padding: 14px 48px;
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent); cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .audio-splash button:hover { background: var(--accent); color: var(--black); }
+
+    /* Floating music control */
+    .music-ctrl {
+      position: fixed; bottom: 24px; right: 24px; z-index: 10000;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s ease; opacity: 0;
+    }
+    .music-ctrl.visible { opacity: 1; }
+    .music-ctrl:hover { border-color: var(--accent); }
+    .music-ctrl svg { width: 18px; height: 18px; fill: var(--accent); }
   </style>
 </head>
 <body>
@@ -316,6 +353,60 @@
       el.style.transition='opacity 0.9s ease, transform 0.9s ease';
       io.observe(el);
     });
+  </script>
+
+  <!-- Background Music: Hearing Damage by Thom Yorke -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="hearing-damage.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Click-to-enter overlay (required by browsers for autoplay) -->
+  <div class="audio-splash" id="audioSplash">
+    <h2>Nikkie Jones</h2>
+    <p>&#9835; Hearing Damage &mdash; Thom Yorke</p>
+    <button onclick="enterSite()">Enter Site</button>
+  </div>
+
+  <!-- Floating play/pause button -->
+  <div class="music-ctrl" id="musicCtrl" onclick="toggleMusic()" title="Toggle music">
+    <svg id="musicIcon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </div>
+
+  <script>
+    const bgMusic = document.getElementById('bgMusic');
+    const musicCtrl = document.getElementById('musicCtrl');
+    const musicIcon = document.getElementById('musicIcon');
+    const playPath = 'M8 5v14l11-7z';
+    const pausePath = 'M6 19h4V5H6v14zm8-14v14h4V5h-4z';
+    let musicPlaying = false;
+
+    function enterSite() {
+      const splash = document.getElementById('audioSplash');
+      splash.classList.add('hidden');
+      setTimeout(() => splash.style.display = 'none', 800);
+      bgMusic.volume = 0.4;
+      bgMusic.play().then(() => {
+        musicPlaying = true;
+        musicIcon.innerHTML = '<path d="' + pausePath + '"/>';
+        musicCtrl.classList.add('visible');
+      }).catch(() => {
+        musicPlaying = false;
+        musicIcon.innerHTML = '<path d="' + playPath + '"/>';
+        musicCtrl.classList.add('visible');
+      });
+    }
+
+    function toggleMusic() {
+      if (musicPlaying) {
+        bgMusic.pause();
+        musicPlaying = false;
+        musicIcon.innerHTML = '<path d="' + playPath + '"/>';
+      } else {
+        bgMusic.play();
+        musicPlaying = true;
+        musicIcon.innerHTML = '<path d="' + pausePath + '"/>';
+      }
+    }
   </script>
 </body>
 </html>
