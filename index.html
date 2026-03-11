@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nikkie Jones</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #050505;
+      --deep: #0d0d0d;
+      --surface: #111111;
+      --border: #1f1f1f;
+      --accent: #c8a96e;
+      --accent2: #e8d5a3;
+      --white: #f0ece4;
+      --muted: #5a5550;
+      --red: #8b2020;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 32px; height: 32px;
+      border: 1px solid rgba(200,169,110,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.15s ease;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 60px 50px 70px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--black) 0%, transparent 40%, transparent 70%, var(--black) 100%),
+                  linear-gradient(to top, var(--black) 0%, transparent 30%);
+    }
+
+    /* Placeholder gradient photo panel */
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 60% 30%, #2a1a0e 0%, transparent 60%),
+        radial-gradient(ellipse at 30% 80%, #1a0a0a 0%, transparent 50%),
+        linear-gradient(160deg, #1a1208 0%, #0a0a0a 50%, #0d0508 100%);
+    }
+
+    /* Decorative vertical text */
+    .vert-text {
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      z-index: 3;
+      white-space: nowrap;
+    }
+
+    .eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 10vw, 130px);
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+
+    .hero-name span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--accent);
+    }
+
+    .hero-tagline {
+      margin-top: 28px;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 340px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 48px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: var(--black);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    }
+
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      right: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+      z-index: 5;
+      opacity: 0;
+      animation: fadeIn 1s 1.4s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--deep);
+      overflow: hidden;
+      padding: 14px 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 20s linear infinite;
+    }
+
+    .marquee-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      color: var(--border);
+      padding: 0 40px;
+    }
+
+    .marquee-item.accent { color: var(--accent); }
+
+    /* ── ABOUT ── */
+    .about {
+      padding: 120px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 100px;
+      align-items: center;
+      position: relative;
+    }
+
+    .about::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+
+    .about-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(100px, 14vw, 180px);
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      position: absolute;
+      top: 80px; left: 40px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .about-left {
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 0.9;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .about-heading em {
+      display: block;
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .about-body {
+      font-size: 18px;
+      line-height: 1.9;
+      color: #9a9086;
+      font-weight: 300;
+    }
+
+    .about-body p + p { margin-top: 20px; }
+
+    .stat-row {
+      display: flex;
+      gap: 48px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── COLLAB ── */
+    .collab {
+      padding: 100px 80px;
+      background: var(--deep);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .collab::before {
+      content: 'COLLABS';
+      position: absolute;
+      top: 40px; right: -20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 180px;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      opacity: 0.3;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .collab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 70px;
+    }
+
+    .collab-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 7vw, 90px);
+      line-height: 0.9;
+      color: var(--white);
+    }
+
+    .collab-title span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--accent);
+    }
+
+    .collab-intro {
+      max-width: 320px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .collab-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 60px;
+    }
+
+    .collab-card {
+      background: var(--surface);
+      padding: 40px 36px;
+      border: 1px solid var(--border);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+    }
+
+    .collab-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .collab-card:hover {
+      background: #141414;
+      border-color: #2a2a2a;
+    }
+
+    .collab-card:hover::before { transform: scaleX(1); }
+
+    .collab-icon {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .collab-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .collab-card-body {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .collab-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #111 0%, #0d0d0d 100%);
+    }
+
+    .collab-cta-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-style: italic;
+      color: var(--white);
+    }
+
+    .collab-cta-text span { color: var(--accent); }
+
+    /* ── INSTAGRAM SECTION ── */
+    .ig-section {
+      padding: 100px 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .ig-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    .ig-handle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(60px, 12vw, 160px);
+      line-height: 0.85;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 32px;
+      display: block;
+      animation: shimmer 4s linear infinite;
+      background-size: 200%;
+    }
+
+    .ig-sub {
+      font-size: 18px;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 48px;
+    }
+
+    .ig-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 52px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ig-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+      z-index: -1;
+    }
+
+    .ig-btn:hover { color: var(--black); }
+    .ig-btn:hover::before { transform: translateX(0); }
+
+    .ig-icon {
+      width: 20px; height: 20px;
+      fill: currentColor;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--black);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* ── EMBED SECTION ── */
+    .embed-section {
+      padding: 100px 80px;
+      text-align: center;
+      background: var(--deep);
+      position: relative;
+    }
+
+    .embed-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    .embed-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      color: var(--white);
+      margin-bottom: 48px;
+      letter-spacing: 0.04em;
+    }
+
+    .embed-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .embed-wrap .instagram-media {
+      border-radius: 2px !important;
+      box-shadow: 0 0 0 1px var(--border), 0 24px 60px rgba(0,0,0,0.6) !important;
+    }
+
+    /* ── EMBED SECTION ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 100px 32px 80px; justify-content: flex-end; min-height: 100vh; }
+      .about { grid-template-columns: 1fr; gap: 40px; padding: 80px 32px; }
+      .collab { padding: 80px 32px; }
+      .collab-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .collab-grid { grid-template-columns: 1fr; }
+      .collab-cta { flex-direction: column; gap: 24px; }
+      .ig-section { padding: 80px 32px; }
+      footer { padding: 28px 32px; flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="eyebrow">@thenikkiejones &nbsp;·&nbsp; Est. 2020</p>
+      <h1 class="hero-name">
+        Nikkie
+        <span>Jones</span>
+      </h1>
+      <p class="hero-tagline">
+        Unapologetically raw. Effortlessly multi-dimensional.<br>
+        Content that doesn't ask for permission.
+      </p>
+      <div class="hero-cta">
+        <a href="https://www.instagram.com/thenikkiejones/" target="_blank" class="btn-primary">
+          <svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Follow on Instagram
+        </a>
+        <a href="#collab" class="btn-outline">Work With Me</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-photo"></div>
+    </div>
+
+    <div class="vert-text">NIKKIE JONES ✦ CONTENT CREATOR ✦ 2025</div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">FASHION</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">LIFESTYLE</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">BEAUTY</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">CULTURE</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">CONTENT</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">THENIKKIEJONES</span>
+      <span class="marquee-item accent">✦</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">FASHION</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">LIFESTYLE</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">BEAUTY</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">CULTURE</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">CONTENT</span>
+      <span class="marquee-item accent">✦</span>
+      <span class="marquee-item">THENIKKIEJONES</span>
+      <span class="marquee-item accent">✦</span>
+    </div>
+  </div>
+
+  <!-- ── ABOUT ── -->
+  <section class="about" id="about">
+    <div class="about-number" aria-hidden="true">01</div>
+    <div class="about-left">
+      <p class="section-label">About Me</p>
+      <h2 class="about-heading">
+        No filter.<br>
+        <em>No apologies.</em>
+      </h2>
+    </div>
+    <div>
+      <div class="about-body">
+        <p>
+          I'm Nikkie — a content creator who refuses to be put in a box. Whether I'm sharing the chaos of everyday life, diving into beauty, calling out trends, or just being unfiltered and real, my page is a space where nothing is off limits.
+        </p>
+        <p>
+          I believe the most powerful content is the kind that makes you feel something. My audience isn't just followers — they're community. And everything I create, I create for them.
+        </p>
+        <p>
+          Based everywhere. Creating always.
+        </p>
+      </div>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Authentic</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">0</span>
+          <span class="stat-label">Filters</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Vibes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COLLABS ── -->
+  <section class="collab" id="collab">
+    <div class="collab-header">
+      <div>
+        <p class="section-label">Work With Me</p>
+        <h2 class="collab-title">
+          Let's Make
+          <span>Something Real.</span>
+        </h2>
+      </div>
+      <p class="collab-intro">
+        I partner with brands that align with my world — not the other way around. Authentic. Strategic. Memorable.
+      </p>
+    </div>
+
+    <div class="collab-grid">
+      <div class="collab-card">
+        <div class="collab-icon">◈</div>
+        <h3 class="collab-card-title">Sponsored Posts</h3>
+        <p class="collab-card-body">Seamlessly integrated brand storytelling that resonates with my audience and feels native to my feed — never forced, always felt.</p>
+      </div>
+      <div class="collab-card">
+        <div class="collab-icon">◉</div>
+        <h3 class="collab-card-title">Reels & Stories</h3>
+        <p class="collab-card-body">High-impact short-form video content designed for engagement. I bring the energy, you bring the brief — together we create something that converts.</p>
+      </div>
+      <div class="collab-card">
+        <div class="collab-icon">◎</div>
+        <h3 class="collab-card-title">Long-Term Partnerships</h3>
+        <p class="collab-card-body">For brands serious about building real community trust. Extended campaigns, ambassador roles, and co-creation opportunities available.</p>
+      </div>
+    </div>
+
+    <div class="collab-cta">
+      <p class="collab-cta-text">Ready to work together? <span>Let's talk.</span></p>
+      <a href="mailto:hello@nikkiejones.com" class="btn-primary" style="font-size:11px;">
+        Get In Touch
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── LATEST POST EMBED ── -->
+  <section class="embed-section">
+    <p class="section-label" style="justify-content:center; margin-bottom: 16px;">Latest Post</p>
+    <h2 class="embed-title">Fresh From The Feed</h2>
+    <div class="embed-wrap">
+      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DVsJGDVDUVA/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px;max-width:540px;min-width:326px;padding:0;width:99.375%;width:calc(100% - 2px);"></blockquote>
+      <script async src="//www.instagram.com/embed.js"></script>
+    </div>
+  </section>
+
+  <!-- ── INSTAGRAM CTA ── -->
+  <section class="ig-section">
+    <span class="ig-handle">@thenikkiejones</span>
+    <p class="ig-sub">Come find me where it's happening.</p>
+    <a href="https://www.instagram.com/thenikkiejones/" target="_blank" class="ig-btn">
+      <svg class="ig-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Follow @thenikkiejones
+    </a>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span class="footer-logo">NIKKIE JONES</span>
+    <span class="footer-copy">© 2025 &nbsp;·&nbsp; @thenikkiejones &nbsp;·&nbsp; All rights reserved</span>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    (function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width = '56px'; ring.style.height = '56px';
+        ring.style.borderColor = 'rgba(200,169,110,0.8)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width = '32px'; ring.style.height = '32px';
+        ring.style.borderColor = 'rgba(200,169,110,0.4)';
+      });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.about, .collab, .ig-section');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(40px)';
+      el.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
+      io.observe(el);
+    });
+  </script>
+</body>
+</html>
