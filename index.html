@@ -25,6 +25,91 @@
     .btn-outline { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; border: 1px solid var(--border); color: var(--muted); font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease; }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
+    /* HERO TITLE */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 40px 20px;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to top, var(--black), transparent);
+      pointer-events: none;
+    }
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 18vw, 260px);
+      line-height: 0.85;
+      text-align: center;
+      letter-spacing: 0.04em;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-name .line1 {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--accent);
+      animation: heroFadeDown 1s ease-out both;
+    }
+    .hero-name .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent) 100%);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: heroFadeUp 1s ease-out 0.2s both, shimmer 4s linear 1.2s infinite;
+    }
+    .hero-subtitle {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(10px, 1.4vw, 14px);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 32px;
+      position: relative;
+      z-index: 2;
+      animation: heroFadeUp 1s ease-out 0.5s both;
+    }
+    .hero-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      margin-top: 48px;
+      position: relative;
+      z-index: 2;
+      animation: heroFadeUp 1s ease-out 0.7s both;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    @keyframes heroFadeDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* MARQUEE */
 
     /* ABOUT */
@@ -145,6 +230,17 @@
 <body>
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <h1 class="hero-name">
+      <span class="line1">Nikkie</span>
+      <span class="line2">Jones</span>
+    </h1>
+    <p class="hero-subtitle">Model &bull; Creative &bull; Muse</p>
+    <div class="hero-line"></div>
+  </section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
