@@ -108,9 +108,7 @@
     .embed-section::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); }
     .embed-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); color: var(--white); margin-bottom: 48px; letter-spacing: 0.04em; }
     .embed-wrap { display: flex; justify-content: center; }
-    .embed-wrap .instagram-media { border-radius: 2px !important; box-shadow: 0 0 0 1px var(--border), 0 24px 60px rgba(0,0,0,0.6) !important; }
-
-    /* IG CTA */
+    .embed-wrap .instagram-media { border-radius: 2px !important; box-shadow: 0 0 0 1px var(--border), 0 24px 60px rgba(0,0,0,0.6) !important; }    /* IG CTA */
     .ig-section { padding: 100px 80px; text-align: center; position: relative; }
     .ig-section::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); }
     .ig-handle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 12vw, 160px); line-height: 0.85; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 32px; display: block; animation: shimmer 4s linear infinite; background-size: 200%; }
@@ -161,6 +159,33 @@
     .yt-btn:hover { background: #ff3355; transform: translateY(-2px); }
     .yt-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
+    /* NJ COLLECTION */
+    .nj-collection { position: relative; padding: 130px 80px; overflow: hidden; background: radial-gradient(ellipse at 20% 0%, #151311 0%, #080706 55%, #050505 100%); border-top: 1px solid var(--border); }
+    .nj-collection::before { content: 'SHOP'; position: absolute; top: 30px; right: -30px; font-family: 'Bebas Neue', sans-serif; font-size: 220px; color: transparent; -webkit-text-stroke: 1px var(--border); opacity: 0.28; pointer-events: none; line-height: 0.85; letter-spacing: 0.02em; }
+    .nj-collection::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(to right, transparent, var(--accent), transparent); opacity: 0.4; }
+    .nj-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; }
+    .nj-media { position: relative; padding: 56px 44px; background: linear-gradient(160deg, #16120b 0%, #0c0a07 100%); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; min-height: 360px; }
+    .nj-media::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 2px; background: linear-gradient(to right, transparent, var(--accent), transparent); }
+    .nj-media::after { content: ''; position: absolute; bottom: -14px; left: -14px; width: 100%; height: 100%; border: 1px solid var(--accent); opacity: 0.45; z-index: -1; }
+    .nj-media img { max-width: 100%; width: auto; height: auto; max-height: 320px; display: block; filter: drop-shadow(0 18px 40px rgba(200, 169, 110, 0.15)); }
+    .nj-corner { position: absolute; top: 18px; right: 18px; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--accent); }
+    .nj-corner .dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; animation: pulseDot 2s infinite; }
+    .nj-chip { display: inline-flex; align-items: center; gap: 10px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.32em; color: var(--accent); text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--accent); margin-bottom: 26px; }
+    .nj-chip .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulseDot 2s infinite; }
+    .nj-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 7vw, 96px); line-height: 0.88; color: var(--white); margin-bottom: 20px; letter-spacing: 0.02em; }
+    .nj-heading em { display: block; color: transparent; -webkit-text-stroke: 1px var(--accent); font-style: normal; }
+    .nj-tagline { font-family: 'Cormorant Garamond', serif; font-size: 22px; line-height: 1.45; color: var(--accent2); font-style: italic; margin-bottom: 22px; max-width: 480px; }
+    .nj-copy { font-size: 17px; line-height: 1.85; color: #9a9086; font-weight: 300; margin-bottom: 34px; max-width: 520px; }
+    .nj-meta { display: flex; gap: 40px; margin-bottom: 40px; padding: 22px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .nj-meta-item { display: flex; flex-direction: column; gap: 6px; }
+    .nj-meta-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; }
+    .nj-meta-value { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--accent); letter-spacing: 0.06em; }
+    .nj-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .nj-cta { display: inline-flex; align-items: center; gap: 12px; padding: 16px 34px; background: var(--accent); color: var(--black); font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+    .nj-cta:hover { background: var(--accent2); transform: translateY(-2px); }
+    .nj-cta svg { width: 16px; height: 16px; fill: currentColor; }
+    .nj-note { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; }
+
     @keyframes pulseDot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.85); } }
 
     footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex; align-items: center; justify-content: space-between; background: var(--black); }
@@ -194,6 +219,11 @@
       .youtube { padding: 80px 24px; }
       .youtube-stage { grid-template-columns: 1fr; gap: 40px; max-width: 320px; }
       .youtube-info { text-align: center; }
+      .nj-collection { padding: 80px 32px; }
+      .nj-collection::before { font-size: 130px; top: 20px; }
+      .nj-inner { grid-template-columns: 1fr; gap: 48px; }
+      .nj-meta { gap: 24px; }
+      .nj-media { min-height: 260px; padding: 40px 28px; }
       footer { padding: 28px 32px; flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
@@ -279,6 +309,43 @@
     </div>
   </section>
 
+  <!-- NJ COLLECTION -->
+  <section class="nj-collection" id="nj-collection">
+    <div class="nj-inner">
+      <div class="nj-media">
+        <span class="nj-corner"><span class="dot"></span>Opening Soon</span>
+        <img src="/assets/nj-collection.gif" alt="The NJ Collection — a sobriety lifestyle storefront from Nikkie Jones" />
+      </div>
+      <div>
+        <span class="nj-chip"><span class="dot"></span>New Storefront · Sobriety Lifestyle</span>
+        <h2 class="nj-heading">The NJ<em>Collection.</em></h2>
+        <p class="nj-tagline">An ecommerce home for all things sobriety — apparel, intention, and the story behind staying the course.</p>
+        <p class="nj-copy">Launching soon: a curated storefront built around the sober life — pieces to wear, carry, and gift. Designed for the ones choosing themselves out loud, and the ones still deciding.</p>
+        <div class="nj-meta">
+          <div class="nj-meta-item">
+            <span class="nj-meta-label">Status</span>
+            <span class="nj-meta-value">Opening Soon</span>
+          </div>
+          <div class="nj-meta-item">
+            <span class="nj-meta-label">Category</span>
+            <span class="nj-meta-value">Sobriety · Lifestyle</span>
+          </div>
+          <div class="nj-meta-item">
+            <span class="nj-meta-label">Shop</span>
+            <span class="nj-meta-value">The NJ Collection</span>
+          </div>
+        </div>
+        <div class="nj-actions">
+          <a href="mailto:hello@nikkiejones.com?subject=The%20NJ%20Collection%20%E2%80%94%20Early%20Access" class="nj-cta">
+            Get Early Access
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <span class="nj-note">Drop list · First Looks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="about-portrait-wrap">
@@ -341,16 +408,6 @@
     <div class="collab-cta">
       <p class="collab-cta-text">Ready to work together? <span>Let's talk.</span></p>
       <a href="mailto:hello@nikkiejones.com" class="btn-primary" style="font-size:11px;">Get In Touch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    </div>
-  </section>
-
-  <!-- EMBED -->
-  <section class="embed-section">
-    <p class="section-label" style="justify-content:center; margin-bottom:16px;">Latest From The Grid</p>
-    <h2 class="embed-title">Fresh From Instagram</h2>
-    <div class="embed-wrap">
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DVsJGDVDUVA/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px;max-width:540px;min-width:326px;padding:0;width:99.375%;width:calc(100% - 2px);"></blockquote>
-      <script async src="//www.instagram.com/embed.js"></script>
     </div>
   </section>
 
@@ -419,7 +476,7 @@
     const io = new IntersectionObserver(entries=>entries.forEach(e=>{
       if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
     }), {threshold:0.08});
-    document.querySelectorAll('.about,.gallery,.collab,.embed-section,.ig-section,.thriving,.youtube').forEach(el=>{
+    document.querySelectorAll('.about,.gallery,.collab,.ig-section,.thriving,.youtube,.nj-collection').forEach(el=>{
       el.style.opacity='0'; el.style.transform='translateY(40px)';
       el.style.transition='opacity 0.9s ease, transform 0.9s ease';
       io.observe(el);
