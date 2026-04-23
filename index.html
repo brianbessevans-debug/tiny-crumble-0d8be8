@@ -120,6 +120,16 @@
     .ig-icon { width: 20px; height: 20px; fill: currentColor; }
 
     /* THRIVING OUT LOUD */
+    .series-row { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .series-row > section { padding-left: 56px; padding-right: 56px; }
+    .series-row .thriving-inner,
+    .series-row .youtube-stage { grid-template-columns: 1fr; max-width: 520px; gap: 40px; }
+    .series-row .thriving-inner { justify-items: start; }
+    .series-row .youtube-stage { text-align: center; }
+    .series-row .short-frame { max-width: 300px; margin: 0 auto; width: 100%; }
+    .series-row .youtube-info { text-align: center; }
+    .series-row .thriving-media { max-width: 440px; }
+    .series-row .thriving::after { font-size: 150px; }
     .thriving { padding: 120px 80px; position: relative; overflow: hidden; background: linear-gradient(135deg, #0d0d0d 0%, #050505 100%); }
     .thriving::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--accent), transparent); opacity: 0.4; }
     .thriving::after { content: 'THRIVING'; position: absolute; bottom: -20px; left: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 200px; color: transparent; -webkit-text-stroke: 1px var(--border); opacity: 0.25; pointer-events: none; line-height: 1; letter-spacing: 0.02em; }
@@ -226,6 +236,16 @@
       .nj-media { min-height: 260px; padding: 40px 28px; }
       footer { padding: 28px 32px; flex-direction: column; gap: 12px; text-align: center; }
     }
+
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .series-row { grid-template-columns: 1fr; }
+      .series-row > section { padding-left: 80px; padding-right: 80px; }
+      .series-row .thriving-inner { grid-template-columns: 1.15fr 1fr; max-width: 1200px; gap: 72px; }
+      .series-row .youtube-stage { grid-template-columns: 320px 1fr; max-width: 960px; gap: 56px; text-align: left; }
+      .series-row .short-frame { max-width: none; margin: 0; }
+      .series-row .youtube-info { text-align: left; }
+      .series-row .thriving-media { max-width: none; }
+    }
   </style>
 </head>
 <body>
@@ -276,7 +296,8 @@
     </div>
   </div>
 
-  <!-- THRIVING OUT LOUD -->
+  <!-- THRIVING OUT LOUD + YOUTUBE SHORT (SIDE-BY-SIDE) -->
+  <div class="series-row">
   <section class="thriving" id="thriving">
     <div class="thriving-inner">
       <div class="thriving-media">
@@ -329,6 +350,7 @@
       </div>
     </div>
   </section>
+  </div>
 
   <!-- NJ COLLECTION -->
   <section class="nj-collection" id="nj-collection">
