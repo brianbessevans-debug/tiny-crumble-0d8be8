@@ -121,6 +121,48 @@
     .ig-btn:hover::before { transform: translateX(0); }
     .ig-icon { width: 20px; height: 20px; fill: currentColor; }
 
+    /* THRIVING OUT LOUD */
+    .thriving { padding: 120px 80px; position: relative; overflow: hidden; background: linear-gradient(135deg, #0d0d0d 0%, #050505 100%); }
+    .thriving::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--accent), transparent); opacity: 0.4; }
+    .thriving::after { content: 'THRIVING'; position: absolute; bottom: -20px; left: -20px; font-family: 'Bebas Neue', sans-serif; font-size: 200px; color: transparent; -webkit-text-stroke: 1px var(--border); opacity: 0.25; pointer-events: none; line-height: 1; letter-spacing: 0.02em; }
+    .thriving-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.15fr 1fr; gap: 72px; align-items: center; position: relative; z-index: 2; }
+    .thriving-media { position: relative; }
+    .thriving-media img { width: 100%; height: auto; display: block; border: 1px solid var(--border); }
+    .thriving-media::after { content: ''; position: absolute; bottom: -14px; right: -14px; width: 100%; height: 100%; border: 1px solid var(--accent); z-index: -1; opacity: 0.5; }
+    .thriving-media .badge { position: absolute; top: 18px; left: 18px; background: #ff0033; color: #fff; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; padding: 8px 14px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; }
+    .thriving-media .badge::before { content: ''; width: 6px; height: 6px; background: #fff; border-radius: 50%; animation: pulseDot 1.6s infinite; }
+    .thriving-chip { display: inline-flex; align-items: center; gap: 10px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--accent); margin-bottom: 24px; }
+    .thriving-chip .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulseDot 2s infinite; }
+    .thriving-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 7vw, 96px); line-height: 0.88; color: var(--white); margin-bottom: 24px; letter-spacing: 0.02em; }
+    .thriving-heading em { display: block; color: transparent; -webkit-text-stroke: 1px var(--accent); font-style: normal; }
+    .thriving-copy { font-size: 18px; line-height: 1.85; color: #9a9086; font-weight: 300; margin-bottom: 32px; max-width: 480px; font-style: italic; }
+    .thriving-meta { display: flex; gap: 40px; margin-bottom: 36px; padding: 22px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .thriving-meta-item { display: flex; flex-direction: column; gap: 6px; }
+    .thriving-meta-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; }
+    .thriving-meta-value { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--accent); letter-spacing: 0.06em; }
+    .thriving-cta { display: inline-flex; align-items: center; gap: 12px; padding: 16px 34px; background: var(--accent); color: var(--black); font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+    .thriving-cta:hover { background: var(--accent2); transform: translateY(-2px); }
+    .thriving-cta svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* YOUTUBE SHORT */
+    .youtube { padding: 100px 80px; background: var(--deep); position: relative; text-align: center; }
+    .youtube::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); }
+    .youtube-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 6.5vw, 80px); color: var(--white); margin-bottom: 14px; letter-spacing: 0.04em; line-height: 0.95; }
+    .youtube-title span { color: transparent; -webkit-text-stroke: 1px var(--accent); }
+    .youtube-sub { font-size: 17px; color: var(--muted); font-style: italic; margin-bottom: 60px; }
+    .youtube-stage { display: grid; grid-template-columns: 320px 1fr; gap: 56px; max-width: 960px; margin: 0 auto; align-items: center; text-align: left; }
+    .short-frame { position: relative; aspect-ratio: 9/16; background: #000; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.65); }
+    .short-frame iframe { width: 100%; height: 100%; display: block; border: 0; }
+    .short-frame-label { position: absolute; top: 12px; left: 12px; z-index: 3; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.3em; color: #fff; background: rgba(0,0,0,0.7); padding: 6px 10px; text-transform: uppercase; pointer-events: none; }
+    .youtube-info h3 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 3.5vw, 48px); color: var(--white); line-height: 1; margin-bottom: 18px; letter-spacing: 0.04em; }
+    .youtube-info p { font-size: 17px; color: #9a9086; line-height: 1.75; margin-bottom: 32px; font-weight: 300; }
+    .youtube-info p em { color: var(--accent); font-style: italic; }
+    .yt-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 32px; background: #ff0033; color: #fff; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-decoration: none; text-transform: uppercase; transition: transform 0.3s ease, background 0.3s ease; }
+    .yt-btn:hover { background: #ff3355; transform: translateY(-2px); }
+    .yt-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    @keyframes pulseDot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.85); } }
+
     footer { border-top: 1px solid var(--border); padding: 32px 80px; display: flex; align-items: center; justify-content: space-between; background: var(--black); }
     .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.1em; color: var(--muted); }
     .footer-copy { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--muted); }
@@ -145,6 +187,13 @@
       .collab-cta { flex-direction: column; gap: 24px; }
       .embed-section { padding: 80px 32px; }
       .ig-section { padding: 80px 32px; }
+      .thriving { padding: 80px 32px; }
+      .thriving-inner { grid-template-columns: 1fr; gap: 48px; }
+      .thriving::after { font-size: 120px; }
+      .thriving-meta { gap: 24px; }
+      .youtube { padding: 80px 24px; }
+      .youtube-stage { grid-template-columns: 1fr; gap: 40px; max-width: 320px; }
+      .youtube-info { text-align: center; }
       footer { padding: 28px 32px; flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
@@ -165,6 +214,7 @@
           Follow on Instagram
         </a>
         <a href="#collab" class="btn-outline">Work With Me</a>
+        <a href="#thriving" class="btn-outline" style="border-color: var(--accent); color: var(--accent);">New Series ↓</a>
       </div>
     </div>
     <div class="hero-right">
@@ -177,20 +227,57 @@
   <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
+      <span class="marquee-item">THRIVING OUT LOUD</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">FASHION</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">LIFESTYLE</span><span class="marquee-item accent">✦</span>
+      <span class="marquee-item">YOUTUBE</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">BEAUTY</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">CULTURE</span><span class="marquee-item accent">✦</span>
-      <span class="marquee-item">CONTENT</span><span class="marquee-item accent">✦</span>
+      <span class="marquee-item">NEW SERIES</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">THENIKKIEJONES</span><span class="marquee-item accent">✦</span>
+      <span class="marquee-item">THRIVING OUT LOUD</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">FASHION</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">LIFESTYLE</span><span class="marquee-item accent">✦</span>
+      <span class="marquee-item">YOUTUBE</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">BEAUTY</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">CULTURE</span><span class="marquee-item accent">✦</span>
-      <span class="marquee-item">CONTENT</span><span class="marquee-item accent">✦</span>
+      <span class="marquee-item">NEW SERIES</span><span class="marquee-item accent">✦</span>
       <span class="marquee-item">THENIKKIEJONES</span><span class="marquee-item accent">✦</span>
     </div>
   </div>
+
+  <!-- THRIVING OUT LOUD -->
+  <section class="thriving" id="thriving">
+    <div class="thriving-inner">
+      <div class="thriving-media">
+        <span class="badge">Now Streaming</span>
+        <img src="/assets/thriving-out-loud.png" alt="Thriving Out Loud — a new YouTube series from The Nikkie Jones, every Friday at 7PM PT" />
+      </div>
+      <div>
+        <span class="thriving-chip"><span class="dot"></span>New Series · On YouTube</span>
+        <h2 class="thriving-heading">Thriving<em>Out Loud.</em></h2>
+        <p class="thriving-copy">Real conversations, unfiltered moments, and everything in between. A weekly drop where I say the things most people think but won't post.</p>
+        <div class="thriving-meta">
+          <div class="thriving-meta-item">
+            <span class="thriving-meta-label">Airs</span>
+            <span class="thriving-meta-value">Every Friday</span>
+          </div>
+          <div class="thriving-meta-item">
+            <span class="thriving-meta-label">Time</span>
+            <span class="thriving-meta-value">7PM PT</span>
+          </div>
+          <div class="thriving-meta-item">
+            <span class="thriving-meta-label">Platform</span>
+            <span class="thriving-meta-value">YouTube</span>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/@thenikkiejones" target="_blank" rel="noopener" class="thriving-cta">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          Watch the Series
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
@@ -259,11 +346,32 @@
 
   <!-- EMBED -->
   <section class="embed-section">
-    <p class="section-label" style="justify-content:center; margin-bottom:16px;">Latest Post</p>
-    <h2 class="embed-title">Fresh From The Feed</h2>
+    <p class="section-label" style="justify-content:center; margin-bottom:16px;">Latest From The Grid</p>
+    <h2 class="embed-title">Fresh From Instagram</h2>
     <div class="embed-wrap">
       <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DVsJGDVDUVA/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px;max-width:540px;min-width:326px;padding:0;width:99.375%;width:calc(100% - 2px);"></blockquote>
       <script async src="//www.instagram.com/embed.js"></script>
+    </div>
+  </section>
+
+  <!-- YOUTUBE SHORT -->
+  <section class="youtube" id="youtube">
+    <p class="section-label" style="justify-content:center; margin-bottom:16px;">On YouTube</p>
+    <h2 class="youtube-title">Short-Form <span>Energy.</span></h2>
+    <p class="youtube-sub">Quick takes. Bigger feelings. Subscribe for the full experience.</p>
+    <div class="youtube-stage">
+      <div class="short-frame">
+        <span class="short-frame-label">● Short</span>
+        <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=thenikkiejones" title="Nikkie Jones — YouTube Shorts" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="youtube-info">
+        <h3>Drop everything.<br/>Hit play.</h3>
+        <p>Shorts, highlights, and behind-the-scenes from <em>Thriving Out Loud</em>. Stacked with moments you won't see on the grid.</p>
+        <a href="https://www.youtube.com/@thenikkiejones/shorts" target="_blank" rel="noopener" class="yt-btn">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          Watch on YouTube
+        </a>
+      </div>
     </div>
   </section>
 
@@ -311,7 +419,7 @@
     const io = new IntersectionObserver(entries=>entries.forEach(e=>{
       if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
     }), {threshold:0.08});
-    document.querySelectorAll('.about,.gallery,.collab,.embed-section,.ig-section').forEach(el=>{
+    document.querySelectorAll('.about,.gallery,.collab,.embed-section,.ig-section,.thriving,.youtube').forEach(el=>{
       el.style.opacity='0'; el.style.transform='translateY(40px)';
       el.style.transition='opacity 0.9s ease, transform 0.9s ease';
       io.observe(el);
